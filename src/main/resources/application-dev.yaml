@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Fx
+#  profiles:
+#    active: dev
+logging:
+  level:
+    root: debug
+debug: true
+fx:
+  message: dev-hello
