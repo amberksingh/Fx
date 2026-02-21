@@ -6,8 +6,15 @@ import com.example.Fx.repo.AccountRepo;
 import com.example.Fx.repo.IdempotencyKeyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.TransientDataAccessException;
+import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +29,8 @@ public class Service {
 
     @Autowired
     IdempotencyKeyRepository keyRepository;
+
+    int counter = 1;
 
     public Account addAccount(Account account) {
         log.info("addAccount service..");
@@ -61,8 +70,14 @@ public class Service {
         return save;
     }
 
+    @Transactional
+    @Retryable(retryFor = {TransientDataAccessException.class}, maxAttempts = 3, backoff = @Backoff(value = 2000))
     public Account addAccountIdempotent(Account account, String idempotencyKey) {
         log.info("addAccountIdempotent service..");
+        log.info("addAccountIdempotent counter {}", counter++);
+
+        //throw new TransientDataAccessResourceException("Simulated transient DB failure");
+
         //check if key exists
         Optional<IdempotencyKey> byKey = keyRepository.findByKey(idempotencyKey);
         if (byKey.isPresent()) {
@@ -75,13 +90,26 @@ public class Service {
         Account save = accountRepo.save(account);
 
         //update idempotency table with account id
-        IdempotencyKey idempotencyKeyObj = new IdempotencyKey();
-        idempotencyKeyObj.setAccountId(save.getId());
-        idempotencyKeyObj.setKey(idempotencyKey);
-        idempotencyKeyObj.setCreatedAt(LocalDateTime.now());
+        try {
+            IdempotencyKey idempotencyKeyObj = new IdempotencyKey();
+            idempotencyKeyObj.setAccountId(save.getId());
+            idempotencyKeyObj.setKey(idempotencyKey);
+            idempotencyKeyObj.setCreatedAt(LocalDateTime.now());
 
-        keyRepository.save(idempotencyKeyObj);
+            keyRepository.save(idempotencyKeyObj);
+        } catch (DataIntegrityViolationException e) {
+            // Duplicate key → another request won
+            IdempotencyKey winner = keyRepository.findById(idempotencyKey).orElseThrow();
+            return accountRepo.findById(winner.getAccountId()).orElseThrow();
+        }
 
         return save;
+    }
+
+    @Recover
+    public Account recover(TransientDataAccessException e, Account account, String idempotencyKey) {
+
+        log.info("recover method for addAccountIdempotent() {}", e);
+        throw new TransientDataAccessResourceException("TransientDataAccessResourceException recovery method");
     }
 }

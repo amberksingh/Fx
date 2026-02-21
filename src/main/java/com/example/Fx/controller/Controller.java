@@ -68,7 +68,7 @@ public class Controller {
     }
 
     @PostMapping("/addAccountIdempotent")
-    public ResponseEntity<?> addAccount(
+    public ResponseEntity<?> addAccountIdempotent(
             @RequestBody Account account,
             @RequestHeader("Idempotency-Key") String idempotencyKey
     ) {
