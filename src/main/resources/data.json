@@ -1,0 +1,98 @@
+[
+  {
+    "username": "amber01",
+    "email": "amber01@example.com",
+    "passwordHash": "$2a$10$hash001",
+    "fullName": "Amber Singh",
+    "phoneNumber": "+919900000001",
+    "enabled": true,
+    "emailVerified": true,
+    "role": "USER",
+    "createdAt": "2026-02-18T10:00:00",
+    "lastLoginAt": "2026-02-18T12:15:00"
+  },
+  {
+    "username": "trader02",
+    "email": "trader02@example.com",
+    "passwordHash": "$2a$10$hash002",
+    "fullName": "Rohit Mehta",
+    "phoneNumber": "+919900000002",
+    "enabled": true,
+    "emailVerified": false,
+    "role": "USER",
+    "createdAt": "2026-02-17T09:30:00",
+    "lastLoginAt": "2026-02-18T11:20:00"
+  },
+  {
+    "username": "admin.fx",
+    "email": "admin.fx@example.com",
+    "passwordHash": "$2a$10$hash003",
+    "fullName": "Neha Kapoor",
+    "phoneNumber": "+919900000003",
+    "enabled": true,
+    "emailVerified": true,
+    "role": "ADMIN",
+    "createdAt": "2026-02-10T08:00:00",
+    "lastLoginAt": "2026-02-18T08:45:00"
+  },
+  {
+    "username": "swingguy",
+    "email": "swingguy@example.com",
+    "passwordHash": "$2a$10$hash004",
+    "fullName": "Arjun Patel",
+    "phoneNumber": "+919900000004",
+    "enabled": true,
+    "emailVerified": true,
+    "role": "USER",
+    "createdAt": "2026-02-12T14:10:00",
+    "lastLoginAt": "2026-02-17T19:00:00"
+  },
+  {
+    "username": "scalpqueen",
+    "email": "scalpqueen@example.com",
+    "passwordHash": "$2a$10$hash005",
+    "fullName": "Priya Shah",
+    "phoneNumber": "+919900000005",
+    "enabled": false,
+    "emailVerified": true,
+    "role": "USER",
+    "createdAt": "2026-02-01T16:40:00",
+    "lastLoginAt": "2026-02-05T10:10:00"
+  },
+  {
+    "username": "riskmanager",
+    "email": "riskmanager@example.com",
+    "passwordHash": "$2a$10$hash006",
+    "fullName": "Vikram Rao",
+    "phoneNumber": "+919900000006",
+    "enabled": true,
+    "emailVerified": false,
+    "role": "SUPPORT",
+    "createdAt": "2026-01-28T11:11:00",
+    "lastLoginAt": "2026-02-18T09:05:00"
+  },
+  {
+    "username": "quantdev",
+    "email": "quantdev@example.com",
+    "passwordHash": "$2a$10$hash007",
+    "fullName": "Karan Verma",
+    "phoneNumber": "+919900000007",
+    "enabled": true,
+    "emailVerified": true,
+    "role": "ADMIN",
+    "createdAt": "2026-01-15T07:25:00",
+    "lastLoginAt": "2026-02-18T07:55:00"
+  },
+  {
+    "username": "newuser08",
+    "email": "newuser08@example.com",
+    "passwordHash": "$2a$10$hash008",
+    "fullName": "Sneha Iyer",
+    "phoneNumber": "+919900000008",
+    "enabled": true,
+    "emailVerified": false,
+    "role": "USER",
+    "createdAt": "2026-02-18T13:00:00",
+    "lastLoginAt": null
+  }
+]

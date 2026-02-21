@@ -67,6 +67,18 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAccount);
     }
 
+    @PostMapping("/addAccountIdempotent")
+    public ResponseEntity<?> addAccount(
+            @RequestBody Account account,
+            @RequestHeader("Idempotency-Key") String idempotencyKey
+    ) {
+
+        log.info("addAccountIdempotent controller..");
+        Account savedAccount = service.addAccountIdempotent(account, idempotencyKey);
+        log.info("addAccountIdempotent added : {}", savedAccount);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAccount);
+    }
+
     @PostMapping("/addMultipleAccounts")
     public ResponseEntity<List<Account>> addMultipleAccounts(@RequestBody List<Account> accounts) {
 
@@ -106,6 +118,12 @@ public class Controller {
                 : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(dir, fieldName));
         return new ResponseEntity<>(service.getAllAccountsV2(pageable), HttpStatus.OK);
+    }
+
+    @PutMapping("/updateAccountById/{id}")
+    public ResponseEntity<Account> updateAccountById(@PathVariable("id") String accId, @RequestBody Account account) {
+        log.info("updateAccountById controller..");
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.updateAccountById(accId, account));
     }
 
     //git init
