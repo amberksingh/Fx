@@ -109,7 +109,7 @@ public class Service {
     @Recover
     public Account recover(TransientDataAccessException e, Account account, String idempotencyKey) {
 
-        log.info("recover method for addAccountIdempotent() {}", e);
+        log.error("recover method for addAccountIdempotent() : ", e);
         throw new TransientDataAccessResourceException("TransientDataAccessResourceException recovery method");
     }
 }
