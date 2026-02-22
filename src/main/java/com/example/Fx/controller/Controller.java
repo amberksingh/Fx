@@ -132,4 +132,8 @@ public class Controller {
     //git branch -M main
     //git remote add origin https://github.com/amberksingh/SpringGit.git
     //git push -u origin main
+
+    //git branch -vv will show:
+    //
+    //* feature-idempotency 43d8d33 [origin/feature-idempotency]
 }

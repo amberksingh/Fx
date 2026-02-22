@@ -113,10 +113,11 @@ public class Service {
 //    }
 
     @Transactional
+    //@Retryable(retryFor = {TransientDataAccessException.class}, maxAttempts = 3, backoff = @Backoff(value = 2000))
     public Account addAccountIdempotent(Account account, String idempotencyKey) throws InterruptedException {
 
         log.info("addAccountIdempotent service..{}", Thread.currentThread().getName());
-        boolean winner = false;
+        //boolean winner = false;
 
         // 1️⃣ Try to CLAIM the idempotency key
         try {

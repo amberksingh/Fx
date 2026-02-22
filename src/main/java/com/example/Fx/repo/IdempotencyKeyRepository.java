@@ -21,4 +21,14 @@ public interface IdempotencyKeyRepository extends JpaRepository<IdempotencyKey, 
     //@Transactional(propagation = Propagation.REQUIRES_NEW)
     @Query(nativeQuery = true, value = "INSERT INTO idempotency_keys (idempotency_key, status, created_at) VALUES (:key, :status, :createdAt)")
     void insertClaim(@Param("key") String key, @Param("status") String status, @Param("createdAt") LocalDateTime createdAt);
+
+//    @Modifying
+//    @Query(value = """
+//        INSERT INTO idempotency_keys (idempotency_key, status, created_at)
+//        VALUES (:key, :status, :createdAt)
+//        ON DUPLICATE KEY UPDATE idempotency_key = idempotency_key
+//        """, nativeQuery = true)
+//    int claimNoThrow(@Param("key") String key,
+//                     @Param("status") String status,
+//                     @Param("createdAt") LocalDateTime createdAt);
 }

@@ -29,6 +29,6 @@ logging:
   level:
     root: info
     org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+    #org.hibernate.orm.jdbc.bind: trace
 fx:
   message: local-hello
