@@ -71,7 +71,7 @@ public class Controller {
     public ResponseEntity<?> addAccountIdempotent(
             @RequestBody Account account,
             @RequestHeader("Idempotency-Key") String idempotencyKey
-    ) {
+    ) throws InterruptedException {
 
         log.info("addAccountIdempotent controller..");
         Account savedAccount = service.addAccountIdempotent(account, idempotencyKey);

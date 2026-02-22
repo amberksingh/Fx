@@ -16,6 +16,10 @@ public class IdempotencyKey {
 
     private Long accountId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
+
     private LocalDateTime createdAt;
 }
 

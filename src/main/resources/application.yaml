@@ -18,10 +18,17 @@ spring:
 #below if uncommented will enable dev profile if we run through normally without terminal mvn command
 #  profiles:
 #    active: dev
+#logging:
+#  level:
+#    root: info
+#    org.hibernate.orm.boot: debug
+#debug: true
 logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   level:
     root: info
-    org.hibernate.orm.boot: debug
-#debug: true
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
 fx:
   message: local-hello
