@@ -10,12 +10,15 @@ public class ValidParentheses {
         Stack<Character> stack = new Stack<>();
 
         for (char ch : charArray) {
+            // Opening brackets → push
             if (ch == '[' || ch == '{' || ch == '(') {
                 stack.push(ch);
             } else {
+                // No matching opening bracket
                 if (stack.isEmpty())
                     return false;
                 char pop = stack.pop();
+                // Check matching type
                 if (ch == ']' && pop != '[')
                     return false;
                 if (ch == '}' && pop != '{')
@@ -24,7 +27,7 @@ public class ValidParentheses {
                     return false;
             }
         }
-
+        // Stack must be empty at the end
         return stack.isEmpty();
     }
 

@@ -272,5 +272,5 @@ public class Service {
 
 //git checkout -b feature-idempotency (-b → create new branch)
 //OR
-//git branch feature-idempotency
-//git checkout feature-idempotency
+//git branch feature-idempotency - create branch
+//git checkout feature-idempotency -switch to created branch
