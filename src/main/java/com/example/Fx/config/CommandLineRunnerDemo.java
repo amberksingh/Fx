@@ -21,6 +21,9 @@ public class CommandLineRunnerDemo implements CommandLineRunner {
     @Value("${fx.message}")
     String fxMessage;
 
+    @Value("${fx.default:test}")
+    String fxDefault;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -35,7 +38,8 @@ public class CommandLineRunnerDemo implements CommandLineRunner {
             System.out.println("Argument: " + arg);
         }
 
-        log.info("fx.message : {}", fxMessage);
+        log.info("fx.message : {}", fxMessage);//local-hello
+        log.info("fx.default : {}", fxDefault);//test i.e the fallback value since fx.default is absent in yml file
 
         //java -jar target/Fx-0.0.1-SNAPSHOT.jar --debug --env=prod foo bar --spring.profiles.active=prod
         //java -jar target/Fx-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev foo bar
