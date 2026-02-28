@@ -12,7 +12,7 @@ public class LongestUniqueSubstring {
                 hashSet.add(s.charAt(right));
                 if (right - left + 1 > maxLength) {
                     maxLength = right - left + 1;
-                    startIndex = left;
+                    startIndex = left;//important
                 }
                 right++;
             } else {
