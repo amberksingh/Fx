@@ -102,6 +102,7 @@ public class SplitMethodStuff {
         //substring(0, 1) → "b"
         //"b" added and "o" removed -> "b"
 
+        //String demo1 = "boo:and:foo";
         //start at 2
         //found next match at 2
         //match end == 3

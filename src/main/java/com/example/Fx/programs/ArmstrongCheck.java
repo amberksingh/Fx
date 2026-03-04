@@ -177,6 +177,54 @@ public class ArmstrongCheck {
         //0–35 (and beyond) → valid numeric or alphanumeric character value
 
 
+        System.out.println("numeric 10 without single quotes : " + Character.getNumericValue(10));//-1
+        //Character.getNumericValue(int ch) expects:
+        //
+        //A Unicode character
+        //
+        //Or an integer representing a character code
+        //
+        //You passed:
+        //
+        //10
+        //
+        //That is not character '1' or '0'.
+        //
+        //It is ASCII code 10.
+        //
+        //⚠ ASCII 10 = Line Feed (newline)
+        //
+        //ASCII table:
+        //
+        //10 → '\n'  (newline character)
+        //
+        //So internally Java treats:
+        //
+        //Character.getNumericValue(10)
+        //
+        //as:
+        //
+        //Character.getNumericValue('\n')
+        //❓ What is numeric value of '\n'?
+        //
+        //It is not a digit, so:
+        //
+        //-1
+        //
+        //is returned.
+        //
+        //🔥 Correct Way
+        //
+        //If you want numeric value of character '1':
+        //
+        //Character.getNumericValue('1')   // 1
+        //
+        //If you write:
+        //
+        //Character.getNumericValue(1)
+        //
+        //That is ASCII code 1 (control character) → returns -1.
+
         //153
         //1^3 + 5^3 + 3^3 = 153
         String s = String.valueOf(number);
@@ -206,7 +254,7 @@ public class ArmstrongCheck {
         while (number > 0) {
             int r = number % 10;
             sum += Math.pow(r, s.length());
-            number=number/10;
+            number = number / 10;
         }
         System.out.println("isAnagramOldSkool sum = " + sum);
         return temp == sum;

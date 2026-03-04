@@ -40,6 +40,9 @@ public class SmallwRegex {
         //each match (start, end)
         //
         //we add substring between lastEnd and match.start()
+
+        //0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
+        //h e l l o _ w o r l d  ,     j  a  v  a  8  .  0     i  s     f  u  n  !
         //
         //Match 1: "hello_world"
         //
@@ -80,6 +83,9 @@ public class SmallwRegex {
         //add substring(23,24) → " " (space)
         //
         //lastEnd=27
+
+        //0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+        //h e l l o _ w o r l d  ,     j  a  v  a  8  .  0     i  s     f  u  n  !
         //
         //After all matches: add tail
         //

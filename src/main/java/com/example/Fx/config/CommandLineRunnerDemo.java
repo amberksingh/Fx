@@ -38,6 +38,9 @@ public class CommandLineRunnerDemo implements CommandLineRunner {
             System.out.println("Argument: " + arg);
         }
 
+        //Non-option argument	Like telling “what to do”: startNow, cleanTemp
+        //Option argument	Like telling “how to do it”: --env=prod, --debug
+
         log.info("fx.message : {}", fxMessage);//local-hello
         log.info("fx.default : {}", fxDefault);//test i.e the fallback value since fx.default is absent in yml file
 
