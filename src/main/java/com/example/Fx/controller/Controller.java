@@ -2,7 +2,9 @@ package com.example.Fx.controller;
 
 import com.example.Fx.model.Account;
 import com.example.Fx.service.Service;
+import com.example.Fx.util.CorrelationConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +27,9 @@ public class Controller {
 
     @GetMapping("/demo")
     public String demo() {
-        log.info("fx demo msg..");
-        return "fx demo msg..";
+        log.info("fx demo..");
+        log.info("Current correlationId from MDC = {}", MDC.get(CorrelationConstants.MDC_KEY));
+        return "fx demo msg";
     }
 
     //✅ 2️⃣ ResponseEntity<?>

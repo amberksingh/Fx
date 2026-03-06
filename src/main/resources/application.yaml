@@ -14,21 +14,80 @@ spring:
 #    properties:
 #      hibernate:
 #        dialect: org.hibernate.dialect.MySQL8Dialect
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          payment-service:
+            connectTimeout: 2000      # 2 seconds to connect
+            readTimeout: 3000         # 5 seconds to wait for response
 
 #below if uncommented will enable dev profile if we run through normally without terminal mvn command
 #  profiles:
 #    active: dev
+
 #logging:
 #  level:
 #    root: info
 #    org.hibernate.orm.boot: debug
+
 #debug: true
+
+#logging:
+#  pattern:
+#    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+#  level:
+#    root: info
+#    org.hibernate.SQL: debug
+
 logging:
   pattern:
-    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [corrId=%X{correlationId}] %msg%n"
   level:
     root: info
-    org.hibernate.SQL: debug
-    #org.hibernate.orm.jdbc.bind: trace
+
 fx:
   message: local-hello
+
+payment:
+  service:
+    url: http://localhost:8081
+
+app:
+  restTemplate:
+    connectTimeout: 3000
+    readTimeout: 4000
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      payment-service:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 5
+        slidingWindowType: COUNT_BASED
+  retry:
+    instances:
+      payment-service: # instance name must match Feign/restTemplate client name
+        maxAttempts: 3                   # total attempts (1 initial + 2 retries)
+        waitDuration: 5s                 # delay between retries
+
+#actuator config
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakerevents,retries,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
