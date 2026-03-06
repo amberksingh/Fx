@@ -2,6 +2,7 @@ package com.example.Fx.controller;
 
 import com.example.Fx.dto.PaymentDto;
 import com.example.Fx.feign.PaymentClient;
+import com.example.Fx.util.CorrelationConstants;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class AccountPaymentController {
     public String pay(@RequestBody PaymentDto paymentDto) {
         log.info("AccountPaymentController pay() method ");
         log.info("Account id {} , amount {}", paymentDto.getId(), paymentDto.getAmount());
-
+        log.info("Before Feign call, corrId from MDC = {}", MDC.get(CorrelationConstants.MDC_KEY));
         return paymentClient.pay(paymentDto);
         //return "success";
     }
